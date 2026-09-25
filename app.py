@@ -1,5 +1,5 @@
 import streamlit as st
-import torchaudio
+import soundfile as sf
 import matplotlib.pyplot as plt
 import os
 
@@ -26,9 +26,12 @@ with col1:
     if os.path.exists(noisy_path):
         st.audio(noisy_path)
         
-        sig, sr = torchaudio.load(noisy_path)
+        sig, sr = sf.read(noisy_path)
         fig, ax = plt.subplots(figsize=(5, 2))
-        ax.plot(sig.numpy(), color="crimson")
+        if len(sig.shape) > 1:
+            ax.plot(sig[:, 0], color="crimson")
+        else:
+            ax.plot(sig, color="crimson")
         ax.axis('off')
         st.pyplot(fig)
     else:
@@ -42,9 +45,12 @@ if st.button("🚀 Run AI Noise Suppression Filter", type="primary"):
             if os.path.exists(clean_path):
                 st.audio(clean_path)
                 
-                sig2, sr2 = torchaudio.load(clean_path)
+                sig2, sr2 = sf.read(clean_path)
                 fig2, ax2 = plt.subplots(figsize=(5, 2))
-                ax2.plot(sig2.numpy(), color="green")
+                if len(sig2.shape) > 1:
+                    ax2.plot(sig2[:, 0], color="green")
+                else:
+                    ax2.plot(sig2, color="green")
                 ax2.axis('off')
                 st.pyplot(fig2)
             else:
@@ -55,3 +61,4 @@ if st.button("🚀 Run AI Noise Suppression Filter", type="primary"):
         m1.metric(label="📊 Signal-to-Noise Ratio (SNR)", value="+16.8 dB", delta="Highly Intelligible")
         m2.metric(label="⚡ System Latency (Processing Speed)", value="14.2 ms", delta="Edge Deployment Ready")
         m3.metric(label="🛡️ Phase Preservation Score", value="98.4%", delta="Perfect Voice Retention")
+       

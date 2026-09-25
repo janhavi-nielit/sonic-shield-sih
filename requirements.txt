@@ -1,4 +1,6 @@
 streamlit
-speechbrain
 torchaudio
+torchcodec
+soundfile
 matplotlib
+numpy

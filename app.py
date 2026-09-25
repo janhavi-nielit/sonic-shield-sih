@@ -3,9 +3,9 @@ import soundfile as sf
 import matplotlib.pyplot as plt
 import os
 
-st.set_page_config(page_title="Team PhasePreserve - AI ANC", layout="wide")
+st.set_page_config(page_title="Team SonicShield - AI ANC", layout="wide")
 st.title("🛡️ Tactical Audio Armor: Live AI Noise Suppression Engine")
-st.markdown("### Developed by Team PhasePreserve for Smart India Hackathon")
+st.markdown("### Developed by Team SonicShield for Smart India Hackathon")
 st.write("---")
 
 st.sidebar.header("🕹️ Tactical Control Panel")
@@ -61,4 +61,3 @@ if st.button("🚀 Run AI Noise Suppression Filter", type="primary"):
         m1.metric(label="📊 Signal-to-Noise Ratio (SNR)", value="+16.8 dB", delta="Highly Intelligible")
         m2.metric(label="⚡ System Latency (Processing Speed)", value="14.2 ms", delta="Edge Deployment Ready")
         m3.metric(label="🛡️ Phase Preservation Score", value="98.4%", delta="Perfect Voice Retention")
-       

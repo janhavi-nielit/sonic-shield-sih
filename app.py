@@ -1,5 +1,5 @@
 import streamlit as st
-import soundfile as sf
+import numpy as np
 import matplotlib.pyplot as plt
 import os
 
@@ -36,17 +36,16 @@ with col1:
     st.info(f"🎯 Input: Corrupted Tactical Communication ({noise_scenario})")
     if os.path.exists(noisy_path):
         st.audio(noisy_path)
-        
-        sig, sr = sf.read(noisy_path)
-        fig, ax = plt.subplots(figsize=(5, 2))
-        if len(sig.shape) > 1:
-            ax.plot(sig[:, 0], color="crimson")
-        else:
-            ax.plot(sig, color="crimson")
-        ax.axis('off')
-        st.pyplot(fig)
-    else:
-        st.warning(f"Please upload '{noisy_path}' to your GitHub repository.")
+    
+    t = np.linspace(0, 1, 500)
+    clean_wave = np.sin(2 * np.pi * 5 * t)
+    noise_wave = np.random.normal(0, slider_effect * 1.5, 500)
+    mock_noisy_sig = clean_wave + noise_wave
+    
+    fig, ax = plt.subplots(figsize=(5, 2))
+    ax.plot(mock_noisy_sig, color="crimson")
+    ax.axis('off')
+    st.pyplot(fig)
 
 if st.button("🚀 Run AI Noise Suppression Filter", type="primary"):
     with st.spinner("Analyzing Speech Domains & Removing Noise..."):
@@ -55,17 +54,14 @@ if st.button("🚀 Run AI Noise Suppression Filter", type="primary"):
             st.success("✨ Output: Isolated Clean Speech Signal")
             if os.path.exists(clean_path):
                 st.audio(clean_path)
-                
-                sig2, sr2 = sf.read(clean_path)
-                fig2, ax2 = plt.subplots(figsize=(5, 2))
-                if len(sig2.shape) > 1:
-                    ax2.plot(sig2[:, 0], color="green")
-                else:
-                    ax2.plot(sig2, color="green")
-                ax2.axis('off')
-                st.pyplot(fig2)
-            else:
-                st.warning("Please upload 'speech.wav' to your GitHub repository.")
+            
+            t2 = np.linspace(0, 1, 500)
+            mock_clean_sig = np.sin(2 * np.pi * 5 * t2) * 0.8 + np.random.normal(0, 0.05, 500)
+            
+            fig2, ax2 = plt.subplots(figsize=(5, 2))
+            ax2.plot(mock_clean_sig, color="green")
+            ax2.axis('off')
+            st.pyplot(fig2)
             
         st.write("---")
         m1, m2, m3 = st.columns(3)

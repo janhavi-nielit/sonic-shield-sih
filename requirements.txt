@@ -1,5 +1,6 @@
 streamlit>=1.44
-soundfile
-matplotlib
 numpy
+matplotlib
 librosa
+soundfile
+noisereduce

@@ -2,3 +2,5 @@ streamlit
 soundfile
 matplotlib
 numpy
+librosa
+soundfile
